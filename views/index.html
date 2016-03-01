@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CopperJS</title>
+
+	
+	
+    <!--STYLESHEET-->
+    <!--=================================================-->
+	
+	<link rel="stylesheet" href="/stylesheets/bootstrap-submenu.min.css">
+
+    <!--Bootstrap Stylesheet [ REQUIRED ]-->
+    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+
+
+    <!--Nifty Stylesheet [ REQUIRED ]-->
+    <link href="/stylesheets/nifty.min.css" rel="stylesheet">
+
+    
+    <!--Font Awesome [ OPTIONAL ]-->
+    <link href="/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+
+    <!--Switchery [ OPTIONAL ]-->
+    <link href="/plugins/switchery/switchery.min.css" rel="stylesheet">
+
+
+    <!--Bootstrap Select [ OPTIONAL ]-->
+    <link href="/plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
+
+
+    <!--Demo [ DEMONSTRATION ]-->
+    <link href="/stylesheets/nifty-demo.min.css" rel="stylesheet">
+
+
+
+
+    <!--SCRIPT-->
+    <!--=================================================-->
+
+    <!--Page Load Progress Bar [ OPTIONAL ]-->
+    <link href="/plugins/pace/pace.min.css" rel="stylesheet">
+    <script src="/plugins/pace/pace.min.js"></script>
+	
+	<link href="/stylesheets/renderJSON.css" rel="stylesheet">
+	<link href="/stylesheets/renderLinkFormat.css" rel="stylesheet">
+
+</head>
+
+<!--TIPS-->
+<!--You may remove all ID or Class names which contain "demo-", they are only used for demonstration. -->
+
+<body onload="Copper.main();">
+	<div id="container" class="effect mainnav-lg navbar-fixed mainnav-fixed aside-fixed aside-in">
+		
+        <!--NAVBAR-->
+        <!--===================================================-->
+        <header id="navbar">
+            <div id="navbar-container" class="boxed">
+
+                <!--Brand logo & name-->
+                <!--================================-->
+                <div class="navbar-header">
+                    <a href="index.html" class="navbar-brand">
+                        <img src="/images/logo.png" alt="Nifty Logo" class="brand-icon">
+                        <div class="brand-title">
+                            <span class="brand-text">CopperJS</span>
+                        </div>
+                    </a>
+                </div>
+                <!--================================-->
+                <!--End brand logo & name-->
+
+
+                <!--Navbar Dropdown-->
+                <!--================================-->
+                <div id="main_toolbar" class="navbar-content clearfix">
+                    <ul class="nav navbar-top-links pull-left">
+
+                        <!--Navigation toogle button-->
+                        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                        <li class="tgl-menu-btn">
+                            <a class="mainnav-toggle" href="tables-static.html#">
+                                <i class="fa fa-navicon fa-lg"></i>
+                            </a>
+                        </li>
+                        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                        <!--End Navigation toogle button-->
+						
+						<li>
+							<button id="toolbar_ping" onclick="alert(marwen);" class="btn btn-primary btn-icon icon-lg fa fa-bullseye add-tooltip" data-placement="bottom" data-toggle="tooltip" data-original-title="Ping"></button>
+							<button id="toolbar_discover" onclick="Copper.userDiscover();" class="btn btn-primary btn-icon icon-lg fa fa-search btn-labeled add-tooltip" data-placement="bottom" data-toggle="tooltip" data-original-title="Discover"><i class="fa fa-spinner fa-pulse" style="display:none;"></i></button>
+						</li>
+						<span class="btn-separator"></span>
+						<li id="toolbar_methods">
+							<button id="toolbar_get" onclick="Copper.userGet();" class="btn btn-success btn-icon icon-lg fa fa-arrow-down add-tooltip" data-placement="bottom" data-toggle="tooltip" data-original-title="Get"></button>
+							<button id="toolbar_post" onclick="Copper.userPost();" class="btn btn-warning btn-icon icon-lg fa fa-arrow-up add-tooltip" data-placement="bottom" data-toggle="tooltip" data-original-title="Post"></button>
+							<button id="toolbar_put" onclick="Copper.userPut();" class="btn btn-warning btn-icon icon-lg fa fa-arrow-right add-tooltip" data-placement="bottom" data-toggle="tooltip" data-original-title="Put"></button>
+							<button id="toolbar_delete" onclick="Copper.userDelete();" class="btn btn-danger btn-icon icon-lg fa fa-trash add-tooltip" data-placement="bottom" data-toggle="tooltip" data-original-title="Delete"></button>
+							<button id="toolbar_observe" onclick="Copper.userObserve();" class="btn btn-success btn-icon icon-lg fa fa-rss btn-labeled add-tooltip" data-placement="bottom" data-toggle="tooltip" data-original-title="Observe">Observe</button>
+						</li>
+						<span class="btn-separator"></span>
+						<li class="dropdown">
+                            <button id="menu_behavior" onclick="Copper.payloadUpdate(event.target);" class="lang-selector dropdown-toggle btn btn-default btn-icon icon-lg" data-toggle="dropdown" aria-expanded="true">Payload <li class="fa fa-angle-down"></li></button>
+                            <ul class="dropdown-menu mode">
+						        <li>
+						            <form class="form-block">
+										<label class="form-radio form-normal form-text"><input id="toolbar_payload_mode_text" onclick="document.getElementById('tab_outgoing_head').click();document.getElementById('payload_text').focus();" value="text" type="radio" name="mode" > Text</label>
+										<label class="form-radio form-normal form-text"><input id="toolbar_payload_mode_file" value="file" onclick="document.getElementById('toolbar_payload_filename').click();" type="radio" name="mode"> File</label>
+									</form>
+						        </li>
+								<hr>
+								<li>
+									<span class="pull-left btn btn-xs btn-default btn-file">
+										<span id="toolbar_payload_filename_label">Choose file...</span> <input id="toolbar_payload_filename" type="file">
+									</span>
+								</li>
+							</ul>
+						</li>
+						<li class="dropdown">
+                            <button id="menu_behavior" onclick="Copper.behaviorUpdate(event.target);" class="lang-selector dropdown-toggle btn btn-default btn-icon icon-lg" data-toggle="dropdown" aria-expanded="true">Behavior <li class="fa fa-angle-down"></li></button>
+                            <ul class="dropdown-menu behavior">
+						        <li>
+						            <form class="form-block">
+										<label class="form-radio form-normal form-text"><input id="menu_behavior_requests_con" type="radio" value="con" name="request"> CON requests</label>
+										<label class="form-radio form-normal form-text"><input id="menu_behavior_requests_non" type="radio" value="non" name="request"> NON requests</label>
+									</form>
+						        </li>
+								<hr>
+								<li>
+									<form class="form-block">
+										<label class="form-checkbox form-normal form-primary form-text add-tooltip" data-placement="right" data-toggle="tooltip" data-original-title="Retransmit unconfirmed messages"><input id="menu_behavior_retransmissions" type="checkbox" > Retransmissions</label>
+										<label class="form-checkbox form-normal form-primary form-text add-tooltip" data-placement="right" data-toggle="tooltip" data-original-title="Do not increase MID"><input id="menu_behavior_send_duplicates" type="checkbox"> Send Duplicates</label>
+									</form>
+								</li>
+								<hr>
+								<li>
+									<form class="form-block">
+										<label class="form-checkbox form-normal form-primary form-text add-tooltip" data-placement="right" data-toggle="tooltip" data-original-title="Display messages with unknown tokens"><input id="menu_behavior_reject_unknown" type="checkbox"> Display unknown</label>
+										<label class="form-checkbox form-normal form-primary form-text add-tooltip" data-placement="right" data-toggle="tooltip" data-original-title="Send a Reset for unknown Non-Confirmables"><input id="menu_behavior_show_unknown" type="checkbox" > Reject unkown NONs</label>
+									</form>
+								</li>
+								<hr>
+								<li>
+									<form class="form-block">
+										<label class="form-checkbox form-normal form-primary form-text add-tooltip" data-placement="right" data-toggle="tooltip" data-original-title="Enable virtual hosts and send Uri-Host option"><input id="menu_behavior_send_uri_host" type="checkbox"> Send Uri-Host</label>
+										<label class="form-checkbox form-normal form-primary form-text add-tooltip" data-placement="right" data-toggle="tooltip" data-original-title="Automatically indicate request representation size"><input id="menu_behavior_send_size1" type="checkbox"> Send auto Size1</label>
+									</form>
+								</li>
+								<hr>
+								<li>
+						            <form class="form-block">
+										<label class="form-radio form-normal form-text"><input id="menu_behavior_block_size_0" value="0" type="radio" name="block"> Block late negotiation</label>
+										<label class="form-radio form-normal form-text"><input id="menu_behavior_block_size_16" value="16" type="radio" name="block"> Block size 16</label>
+										<label class="form-radio form-normal form-text"><input id="menu_behavior_block_size_32" value="32" type="radio" name="block"> Block size 32</label>
+										<label class="form-radio form-normal form-text"><input id="menu_behavior_block_size_64" value="64" type="radio" name="block"> Block size 64</label>
+										<label class="form-radio form-normal form-text"><input id="menu_behavior_block_size_128" value="128" type="radio" name="block"> Block size 128</label>
+										<label class="form-radio form-normal form-text"><input id="menu_behavior_block_size_256" value="256" type="radio" name="block"> Block size 256</label>
+										<label class="form-radio form-normal form-text"><input id="menu_behavior_block_size_512" value="512" type="radio" name="block"> Block size 512</label>
+										<label class="form-radio form-normal form-text"><input id="menu_behavior_block_size_1024" value="1024" type="radio" name="block"> Block size 1024</label>
+									</form>
+						        </li>
+								<hr>
+								<li>
+									<form class="form-block">
+										<label class="form-checkbox form-normal form-primary form-text add-tooltip" data-placement="right" data-toggle="tooltip" data-original-title="Enforce non-default Token option for observing"><input id="menu_behavior_token_observe" type="checkbox"> Observe Token</label>
+									</form>
+								</li>
+						        <hr>
+								<li>
+						            <form class="form-block">
+										<label class="form-radio form-normal form-text add-tooltip" data-placement="right" data-toggle="tooltip" data-original-title="Only remove subscription, send lazy RST later (can be used for MID matching at server)"><input id="menu_behavior_observe_lazy" value="lazy" type="radio" name="observe" > Lazy observe cancel</label>
+										<label class="form-radio form-normal form-text add-tooltip" data-placement="right" data-toggle="tooltip" data-original-title="Send a GET without Observe option to notify server"><input id="menu_behavior_observe_get" value="get" type="radio" name="observe"> GET observe cancel</label>
+										<label class="form-radio form-normal form-text add-tooltip" data-placement="right" data-toggle="tooltip" data-original-title="Send a RST right away (does not work with MID matching as new MID is used)"><input id="menu_behavior_observe_rst" value="rst" type="radio" name="observe"> RST observe cancel</label>
+									</form>
+						        </li>
+                            </ul>
+                        </li>
+						<li id="menu_plugtest" class="dropdown">
+                            <button id="menu_plugtest_popup" onclick="Copper.testSelect(event.target);" class="lang-selector dropdown-toggle btn btn-default btn-icon icon-lg" data-submenu data-toggle="dropdown" aria-expanded="true">Plugtest <li class="fa fa-angle-down"></li></button>
+                            <ul class="dropdown-menu">
+								<li class="dropdown-submenu">
+									<a id="menu_plugtest_core" tabindex="0">TD_COAP_CORE</a>
+									<ul class="dropdown-menu">
+										<li id="menu_plugtest_core_01" onclick="Copper.testCore01();"><a tabindex="0">CORE_01 (GET CON)</a></li>
+										<li id="menu_plugtest_core_02" onclick="Copper.testCore02();"><a tabindex="0">CORE_02 (DELETE CON)</a></li>
+										<li id="menu_plugtest_core_03" onclick="Copper.testCore03();"><a tabindex="0">CORE_03 (PUT CON)</a></li>
+										<li id="menu_plugtest_core_04" onclick="Copper.testCore04();"><a tabindex="0">CORE_04 (POST CON)</a></li>
+										<li id="menu_plugtest_core_05" onclick="Copper.testCore05();"><a tabindex="0">CORE_05 (GET NON)</a></li>
+										<li id="menu_plugtest_core_06" onclick="Copper.testCore06();"><a tabindex="0">CORE_06 (DELETE NON)</a></li>
+										<li id="menu_plugtest_core_07" onclick="Copper.testCore07();"><a tabindex="0">CORE_07 (PUT NON)</a></li>
+										<li id="menu_plugtest_core_08" onclick="Copper.testCore08();"><a tabindex="0">CORE_08 (POST NON)</a></li>
+										<li id="menu_plugtest_core_09" onclick="Copper.testCore09();"><a tabindex="0">CORE_09 (CON /separate)</a></li>
+										<li id="menu_plugtest_core_10" onclick="Copper.testCore10();"><a tabindex="0">CORE_10 (GET Token)</a></li>
+										<li id="menu_plugtest_core_11" onclick="Copper.testCore11();"><a tabindex="0">CORE_11 (CON /separate Token)</a></li>
+										<li id="menu_plugtest_core_12" onclick="Copper.testCore12();"><a tabindex="0">CORE_12 (GET No Token)</a></li>
+										<li id="menu_plugtest_core_13" onclick="Copper.testCore13();"><a tabindex="0">CORE_13 (GET /seg1/seg2/seg3)</a></li>
+										<li id="menu_plugtest_core_14" onclick="Copper.testCore14();"><a tabindex="0">CORE_14 (GET /query)</a></li>
+										<li id="menu_plugtest_core_15" onclick="Copper.testCore15();"><a tabindex="0">CORE_15 (GET lossy)</a></li>
+										<li id="menu_plugtest_core_16" onclick="Copper.testCore16();"><a tabindex="0">CORE_16 (CON /separate lossy)</a></li>
+										<li id="menu_plugtest_core_17" onclick="Copper.testCore17();"><a tabindex="0">CORE_17 (NON /separte)</a></li>
+										<li id="menu_plugtest_core_18" onclick="Copper.testCore18();"><a tabindex="0">CORE_18 (POST Location-Path)</a></li>
+										<li id="menu_plugtest_core_19" onclick="Copper.testCore19();"><a tabindex="0">CORE_19 (POST Location-Query)</a></li>
+										<li id="menu_plugtest_core_20a" onclick="Copper.testCore20a();"><a tabindex="0">CORE_20a (GET text/plain)</a></li>
+										<li id="menu_plugtest_core_20b" onclick="Copper.testCore20b();"><a tabindex="0">CORE_20b (GET application/xml)</a></li>
+										<li id="menu_plugtest_core_21a" onclick="Copper.testCore21a();"><a tabindex="0">CORE_21a (GET ETag)</a></li>
+										<li id="menu_plugtest_core_21b" onclick="Copper.testCore21b();"><a tabindex="0">CORE_21b (GET ETag validate)</a></li>
+										<li id="menu_plugtest_core_21c" onclick="Copper.testCore21c();"><a tabindex="0">CORE_21c (GET ETag changed)</a></li>
+										<li id="menu_plugtest_core_22a" onclick="Copper.testCore22a();"><a tabindex="0">CORE_22a (GET ETag)</a></li>
+										<li id="menu_plugtest_core_22b" onclick="Copper.testCore22b();"><a tabindex="0">CORE_22b (PUT If-Match)</a></li>
+										<li id="menu_plugtest_core_22c" onclick="Copper.testCore22c();"><a tabindex="0">CORE_22c (GET new ETag)</a></li>
+										<li id="menu_plugtest_core_22d" onclick="Copper.testCore22d();"><a tabindex="0">CORE_22d (PUT If-Match changed)</a></li>
+										<li id="menu_plugtest_core_23a" onclick="Copper.testCore23a();"><a tabindex="0">CORE_23a (PUT If-None-Match)</a></li>
+										<li id="menu_plugtest_core_23b" onclick="Copper.testCore23b();"><a tabindex="0">CORE_23b (PUT If-None-Match exists)</a></li>
+									</ul>
+								</li>
+								<li class="dropdown-submenu">
+									<a id="menu_plugtest_block" tabindex="0">TD_COAP_BLOCK</a>
+									<ul class="dropdown-menu">
+										<li id="menu_plugtest_block_01" onclick="Copper.testBlock01();"><a tabindex="0">BLOCK_01 (/large)</a></li>
+										<li id="menu_plugtest_block_02" onclick="Copper.testBlock02();"><a tabindex="0">BLOCK_02 (/large late)</a></li>
+										<li id="menu_plugtest_block_03" onclick="Copper.testBlock03();"><a tabindex="0">BLOCK_03 (/large-update)</a></li>
+										<li id="menu_plugtest_block_04" onclick="Copper.testBlock04();"><a tabindex="0">BLOCK_04 (/large-create)</a></li>
+										<li id="menu_plugtest_block_05" onclick="Copper.testBlock05();"><a tabindex="0">BLOCK_05 (/large-post)</a></li>
+										<li id="menu_plugtest_block_06" onclick="Copper.testBlock06();"><a tabindex="0">BLOCK_06 (/large 16)</a></li>
+									</ul>
+								</li>
+								<li class="dropdown-submenu">
+									<a id="menu_plugtest_observe" tabindex="0">TD_COAP_OBS</a>
+									<ul class="dropdown-menu">
+										<li id="menu_plugtest_observe_01" onclick="Copper.testObs01();"><a tabindex="0">OBS_01 (CON observe)</a></li>
+										<li id="menu_plugtest_observe_06" onclick="Copper.testObs06();"><a tabindex="0">OBS_06 (Cancel RST)</a></li>
+										<li id="menu_plugtest_observe_02" onclick="Copper.testObs02();"><a tabindex="0">OBS_02 (NON Observe)</a></li>
+										<li id="menu_plugtest_observe_12" onclick="Copper.testObs12();"><a tabindex="0">OBS_12 (Cancel GET)</a></li>
+										<li id="menu_plugtest_observe_04" onclick="Copper.testObs04();"><a tabindex="0">OBS_04 (Max-Age timeout)</a></li>
+										<li id="menu_plugtest_observe_05" onclick="Copper.testObs05();"><a tabindex="0">OBS_05 (Reboot)</a></li>
+										<li id="menu_plugtest_observe_07" onclick="Copper.testObs07();"><a tabindex="0">OBS_07 (DELETE /obs)</a></li>
+										<li id="menu_plugtest_observe_08" onclick="Copper.testObs08();"><a tabindex="0">OBS_08 (PUT new Content-Format)</a></li>
+										<li id="menu_plugtest_observe_09" onclick="Copper.testObs09();"><a tabindex="0">OBS_09 (PUT same Content-Format)</a></li>
+										<li id="menu_plugtest_observe_10" onclick="Copper.testObs10();"><a tabindex="0">OBS_10 (Unrelated GET)</a></li>
+										<li id="menu_plugtest_observe_11" onclick="Copper.testObs01();"><a tabindex="0">OBS_11 (CON observe lossy)</a></li>
+									</ul>
+								</li>
+								<li class="dropdown-submenu">
+									<a id="menu_plugtest_link" tabindex="0">TD_COAP_LINK</a>
+									<ul class="dropdown-menu">
+										<li id="menu_plugtest_link_01" onclick="Copper.testLink01();"><a tabindex="0">LINK_01 (Discover)</a></li>
+										<li id="menu_plugtest_link_02" onclick="Copper.testLink02();"><a tabindex="0">LINK_02 (Filter rt=Type1)</a></li>
+										<li id="menu_plugtest_link_03" onclick="Copper.testLink03();"><a tabindex="0">LINK_03 (Filter rt=*)</a></li>
+										<li id="menu_plugtest_link_04" onclick="Copper.testLink04();"><a tabindex="0">LINK_04 (Filter rt=Type2)</a></li>
+										<li id="menu_plugtest_link_05" onclick="Copper.testLink05();"><a tabindex="0">LINK_05 (Filter if=If*)</a></li>
+										<li id="menu_plugtest_link_06" onclick="Copper.testLink06();"><a tabindex="0">LINK_06 (Filter sz=*)</a></li>
+										<li id="menu_plugtest_link_07" onclick="Copper.testLink07();"><a tabindex="0">LINK_07 (Filter href=/link1)</a></li>
+										<li id="menu_plugtest_link_08" onclick="Copper.testLink08();"><a tabindex="0">LINK_08 (Filter href=/link*)</a></li>
+										<li id="menu_plugtest_link_09a" onclick="Copper.testLink09a();"><a tabindex="0">LINK_09a (Filter ct=40)</a></li>
+										<li id="menu_plugtest_link_09b" onclick="Copper.testLink09b();"><a tabindex="0">LINK_09b (GET /path)</a></li>
+										<li id="menu_plugtest_link_09c" onclick="Copper.testLink09c();"><a tabindex="0">LINK_09c (GET /path/sub1)</a></li>
+									</ul>
+								</li>
+								<hr>
+								<li><a tabindex="0"><label class="form-checkbox form-normal form-primary active form-text add-tooltip" data-placement="right" data-toggle="tooltip" data-original-title="Use the Proxy-Uri to run the proxy tests"><input id="menu_plugtest_proxy" onclick="Copper.testSetProxy(event.target);" type="checkbox"> Using proxy</label></a></li>
+							</ul>
+                        </li>
+						<li>
+							<button id="toolbar_plugtest_exec" onclick="Copper.testNext();" class="btn btn-success btn-icon icon-lg fa fa-check add-tooltip" data-placement="bottom" data-toggle="tooltip" data-original-title="Test"></button>
+						</li>
+                    </ul>
+                    <ul class="nav navbar-top-links pull-right">
+						<li>
+							<button id="toolbar_preferences" class="btn btn-default btn-icon icon-lg fa fa-cog add-tooltip" data-toggle="dropdown" aria-expanded="true" data-placement="bottom" data-toggle="tooltip" data-original-title="Preferences"></button>
+						</li>
+						<li class="mega-dropdown">
+                            <a id="toolbar_log" href="ui-panels.html#" class="mega-dropdown-toggle">
+                                <i class="fa fa-th-large fa-lg"></i>
+                            </a>
+                            <div class="dropdown-menu mega-dropdown-menu pull-right">
+                                <div class="clearfix">
+                                    <div id="panel_event_log" class="tab-pane fade active in" style="width:530px;height:700px;">
+										<textarea id="log_event_log" rows="10" class="form-control" readonly="true" style="background-color: black;margin:5px;resize:none;width: 100%; height: 100%; font-family: monospace; padding: 5px;"></textarea>
+									</div>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+                <!--================================-->
+                <!--End Navbar Dropdown-->
+
+            </div>
+        </header>
+
+
+		<div class="boxed">
+
+
+			<div id="content-container">
+
+				<div id="page-title">
+					<p class="page-header text-overflow">Status: <span id="info_code"></span></p>
+					<div class="searchbox">
+						<div class="input-group custom-search-form">
+							<input id="urlbar" type="text" class="form-control" placeholder="coap://">
+							<input id="location" type="text" hidden="true" value="">
+							<span class="input-group-btn">
+								<button class="text-muted" type="button"><i class="fa fa-chevron-right" onclick="Copper.go();"></i></button>
+							</span>
+						</div>
+					</div>
+				</div>
+				
+				<div id="page-content">
+					
+					
+					<div id="group_head" class="row">
+						<div class="col-sm-3">
+							<div class="panel">
+								<div class="panel-heading">
+									<h3 class="panel-title">Packet Header</h3>
+								</div>
+					
+								<!-- Striped Table -->
+								<!--===================================================-->
+								<div class="panel-body">
+									<div class="table-responsive">
+										<table id="packet_header" class="table table-striped">
+											<thead>
+												<tr>
+													<th>Header</th>
+													<th>Value</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><strong>Type</strong></td>
+													<td id="packet_header_type"></td>
+												</tr>
+												<tr>
+													<td><strong>Code</strong></td>
+													<td id="packet_header_code"></td>
+												</tr>
+												<tr>
+													<td><strong>MID</strong></td>
+													<td id="packet_header_mid"></td>
+												</tr>
+												<tr>
+													<td><strong>Token</strong></td>
+													<td id="packet_header_token"></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<!--===================================================-->
+								<!-- End Striped Table -->
+					
+							</div>
+						</div>
+						<div class="col-sm-9">
+							<div class="panel">
+								<div class="panel-heading">
+									<h3 class="panel-title">Packet Options</h3>
+								</div>
+					
+								<!--Bordered Table-->
+								<!--===================================================-->
+								<div class="panel-body">
+									<div class="table-responsive">
+										<table id="packet_options" class="table table-striped">
+											<thead>
+												<tr>
+													<th width="10%">Option</th>
+													<th width="70%">Value</th>
+													<th width="20%">Info</th>
+												</tr>
+											</thead>
+											<tbody>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<!--===================================================-->
+								<!--End Bordered Table-->
+					
+							</div>
+						</div>
+					</div>
+					<div id="group_payload" class="row">
+						<div class="col-lg-12">
+							<div class="panel">
+					
+								<!-- Panel heading -->
+								<div class="panel-heading">
+									<div class="panel-control">
+										<ul class="nav nav-tabs">
+											<li class="active"><a data-toggle="tab" id="tab_incoming_head" href="#tab_incoming" aria-expanded="true"><i class="fa fa-arrow-down"></i> Incoming</a></li>
+											<li class=""><a data-toggle="tab" id="tab_rendered_head" href="#tab_rendered" aria-expanded="false"><i class="fa fa-image"></i> Rendered</a></li>
+											<li class=""><a data-toggle="tab" id="tab_outgoing_head" href="#tab_outgoing" aria-expanded="false"><i class="fa fa-arrow-up"></i> Outgoing</a></li>
+										</ul>
+									</div>
+									<h3 id="info_payload" class="panel-title">Payload</h3>
+								</div>
+					
+								<!-- Panel body -->
+								<form id="tabs_payload" class="form-horizontal bv-form" action="forms-validation.html#" method="post" novalidate="novalidate"><button type="submit" class="bv-hidden-submit" style="display: none; width: 0px; height: 0px;"></button>
+									<div class="panel-body">
+										<div class="tab-content">
+					
+											<div id="tab_incoming" class="tab-pane fade active in">
+												<textarea id="packet_payload" rows="10" class="form-control" readonly="true" style="resize:none;background-color: white; width: 100%; height: 100%; font-family: monospace; padding: 5px;"></textarea>
+											</div>
+					
+											<div id="tab_rendered" class="tab-pane fade">
+												<div style="height:200.5px;width:100%">
+													<image id="rendered_img" src=""/>
+													<div id="rendered_div"></div>
+												</div>
+											</div>
+					
+					
+											<div id="tab_outgoing" class="tab-pane fade">
+												<textarea id="payload_text" rows="10" class="form-control" style="resize:none;background-color: white; width: 100%; height: 100%; font-family: monospace; padding: 5px;"></textarea>
+											</div>
+					
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+						
+					</div>
+					<div class="panel">
+						<div class="panel-heading">
+							<h3 class="panel-title">CoAP Message Log</h3>
+						</div>
+					
+						<div class="panel-body">
+							<div id="log_messages" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+								<table id="demo-dt-addrow" class="table table-striped table-bordered" cellspacing="0" width="100%">
+									<thead>
+										<tr role="row">
+											<th width="4.5%">Time</th>
+											<th width="10%">CoAP Message</th>
+											<th width="4.5%">MID</th>
+											<th width="6%">Token</th>
+											<th>Options</th>
+											<th>Payload</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					
+					</div>
+					
+					
+				</div>
+				<!--===================================================-->
+				<!--End page content-->
+
+
+			</div>
+			<!--===================================================-->
+			<!--END CONTENT CONTAINER-->
+
+
+			
+            <!--MAIN NAVIGATION-->
+            <!--===================================================-->
+            <nav id="mainnav-container">
+                <div id="mainnav">
+
+                    <!--Shortcut buttons-->
+                    <!--================================-->
+                    <div id="mainnav-shortcut">
+                        <ul class="list-unstyled">
+                            <li class="col-xs-4" data-content="Debug Control">
+                                <a id="demo-toggle-aside" class="shortcut-grid" href="tables-static.html#">
+                                    <i class="fa fa-cogs"></i>
+                                </a>
+                            </li>
+                            <li class="col-xs-4" data-content="Notification">
+                                <a id="demo-alert" class="shortcut-grid" href="tables-static.html#">
+                                    <i class="fa fa-bullhorn"></i>
+                                </a>
+                            </li>
+                            <li class="col-xs-4" data-content="Page Alerts">
+                                <a id="demo-page-alert" class="shortcut-grid" href="tables-static.html#">
+                                    <i class="fa fa-bell"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--================================-->
+                    <!--End shortcut buttons-->
+
+
+                    <!--Menu-->
+                    <!--================================-->
+                    <div id="mainnav-menu-wrap">
+                        <div class="nano">
+                            <div class="nano-content">
+								<h2 class="text-center tree-header">Resources Tree</h2>
+								<ul id="resource_tree">
+								</ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!--================================-->
+                    <!--End menu-->
+
+                </div>
+            </nav>
+            <!--===================================================-->
+            <!--END MAIN NAVIGATION-->
+			
+			<!--ASIDE-->
+			<!--===================================================-->
+			<aside id="aside-container">
+				<div id="aside">
+					<div class="nano">
+						<div class="nano-content">
+
+
+							<div class="debug-control-panel" id="debug-control-panel">
+
+								<div class="tab-pane fade in active" id="demo-asd-tab-1">
+									<h4 class="pad-hor text-thin">
+										<label class="form-checkbox form-normal form-primary active form-text"><input id="chk_debug_options" type="checkbox"> Debug Control</label>
+										<button onclick="Copper.resetDebugOptions();" class="btn btn-primary btn-icon icon-lg fa fa-refresh btn-xs add-tooltip pull-right" data-placement="bottom" data-toggle="tooltip" data-original-title="Reset"></button>
+									</h4>
+									<h5 class="pad-hor text-thin text-center">
+										Token
+									</h5>
+									<div class="list-group bg-trans">
+										<div class="col-sm-12">
+											<div>
+												<input id="debug_option_token" type="text" placeholder="use hex (0x..) or string" class="form-control input-sm">
+												<span class="clearer token-clearer fa fa-times"></span>
+											</div>
+										</div>
+									</div>
+									<hr>
+									<h5 class="pad-hor text-thin text-center">
+										Request Options
+									</h5>
+									<div class="list-group bg-trans">
+										<div class="col-sm-12">
+											<h6 class="text-thin">
+												Accept
+											</h6>
+											<div class="btn-group select-xs bootstrap-select open">
+												<select id="debug_option_accept" class="demo-ease">
+												</select>
+											</div>
+											<h6 class="text-thin">
+												Content-Format
+											</h6>
+											<div class="btn-group select-xs bootstrap-select open">
+												<select id="debug_option_content_format" class="demo-ease">
+												</select>
+											</div>
+										</div>
+										<div class="col-sm-5">
+											<h6 class="text-thin">
+												Block1 (Req.)
+											</h6>
+											<div>
+												<input id="debug_option_block1" type="text" placeholder="block no." class="form-control input-sm">
+												<span class="clearer fa fa-times"></span>
+											</div>
+										</div>
+										<div class="col-sm-5">
+											<h6 class="text-thin">
+												Block2 (Req.)
+											</h6>
+											<div>
+												<input id="debug_option_block2" type="text" placeholder="block no." class="form-control input-sm">
+												<span class="clearer fa fa-times"></span>
+											</div>
+										</div>
+										<div class="col-sm-2">
+											<h6 class="text-thin">
+												Auto
+											</h6>
+											<label class="form-checkbox form-normal form-primary active"><input id="chk_debug_option_block_auto" type="checkbox" ></label>
+										</div>
+										<div class="col-sm-5">
+											<h6 class="text-thin">
+												Size1
+											</h6>
+											<div>
+												<input id="debug_option_size1" type="text" placeholder="total size" class="form-control input-sm">
+												<span class="clearer fa fa-times"></span>
+											</div>
+										</div>
+										
+										<div class="col-sm-5">
+											<h6 class="text-thin">
+												Size2
+											</h6>
+											<div>
+												<input id="debug_option_size2" type="text" placeholder="total size" class="form-control input-sm">
+												<span class="clearer fa fa-times"></span>
+											</div>
+										</div>
+										<div class="col-sm-12">
+											<h6 class="text-thin">
+												Observe
+											</h6>
+											<div>
+												<input id="debug_option_observe" type="text" placeholder="use integer" class="form-control input-sm">
+												<span class="clearer fa fa-times"></span>
+											</div>
+										</div>
+										<div class="col-sm-12">
+											<h6 class="text-thin">
+												ETag
+											</h6>
+											<div>
+												<input id="debug_option_etag" type="text" placeholder="use hex (0x..) or string" class="form-control input-sm">
+												<span class="clearer fa fa-times"></span>
+											</div>
+										</div>
+										<div class="col-sm-12">
+											<h6 class="text-thin">
+												If-Match
+											</h6>
+											<div>
+												<input id="debug_option_if_match" type="text" placeholder="use an ETag" class="form-control input-sm">
+												<span class="clearer fa fa-times"></span>
+											</div>
+										</div>
+										<div class="col-sm-12">
+											<label class="form-checkbox form-normal form-primary form-text"><input id="debug_option_if_none_match" type="checkbox"> <h6>If-None-Match</h6></label>
+										</div>
+										<div class="col-sm-8">
+											<h6 class="text-thin">
+												Uri-Host
+											</h6>
+											<div>
+												<input id="debug_option_uri_host" type="text" placeholder="not set" class="form-control input-sm">
+												<span class="clearer fa fa-times"></span>
+											</div>
+										</div>
+										<div class="col-sm-4">
+											<h6 class="text-thin">
+												Uri-Port
+											</h6>
+											<div>
+												<input id="debug_option_uri_port" type="text" placeholder="n/s" class="form-control input-sm">
+												<span class="clearer fa fa-times"></span>
+											</div>
+										</div>
+										<div class="col-sm-12">
+											<h6 class="text-thin">
+												Proxy-Uri
+											</h6>
+											<div>
+												<input id="debug_option_proxy_uri" type="text" placeholder="use absolute URI" class="form-control input-sm">
+												<span class="clearer fa fa-times"></span>
+											</div>
+										</div>
+										<div class="col-sm-12">
+											<label class="form-checkbox form-normal form-primary form-text"><input id="debug_option_proxy_scheme" type="checkbox"> <h6>Use Proxy-Scheme option</h6></label>
+										</div>
+									</div>
+									<hr>
+									<h5 class="pad-hor text-thin text-center">
+										Response Options
+									</h5>
+									<div class="list-group bg-trans">
+										<div class="col-sm-12">
+											<h6 class="text-thin">
+												Max-Age
+											</h6>
+											<div>
+												<input id="debug_option_max_age" type="text" placeholder="use integer" class="form-control input-sm">
+												<span class="clearer fa fa-times"></span>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<h6 class="text-thin">
+												Location-Path
+											</h6>
+											<div>
+												<input id="debug_option_location_path" type="text" placeholder="not set" class="form-control input-sm">
+												<span class="clearer fa fa-times"></span>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<h6 class="text-thin">
+												Location-Query
+											</h6>
+											<div>
+												<input id="debug_option_location_query" type="text" placeholder="not set" class="form-control input-sm">
+												<span class="clearer fa fa-times"></span>
+											</div>
+										</div>
+									</div>
+									<hr>
+									<h5 class="pad-hor text-thin text-center">
+										Custom Options
+									</h5>
+									<div class="list-group bg-trans">
+										<div class="col-sm-4">
+											<h6 class="text-thin">
+												Number
+											</h6>
+											<div>
+												<input id="debug_option_custom_number" type="text" placeholder="not set" class="form-control input-sm">
+												<span class="clearer fa fa-times"></span>
+											</div>
+										</div>
+										<div class="col-sm-8">
+											<h6 class="text-thin">
+												Value
+											</h6>
+											<div>
+												<input id="debug_option_custom_value" type="text" placeholder="use hex (0x..) or string" class="form-control input-sm">
+												<span class="clearer fa fa-times"></span>
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</aside>
+			<!--===================================================-->
+			<!--END ASIDE-->
+
+		</div>
+
+		
+
+        <!-- FOOTER -->
+        <!--===================================================-->
+        <footer id="footer">
+
+            <!-- Visible when footer positions are fixed -->
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <div class="show-fixed pull-right">
+                <ul class="footer-list list-inline">
+                    <li>
+                        <p class="text-sm">SEO Proggres</p>
+                        <div class="progress progress-sm progress-light-base">
+                            <div style="width: 80%" class="progress-bar progress-bar-danger"></div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <p class="text-sm">Online Tutorial</p>
+                        <div class="progress progress-sm progress-light-base">
+                            <div style="width: 80%" class="progress-bar progress-bar-primary"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <button class="btn btn-sm btn-dark btn-active-success">Checkout</button>
+                    </li>
+                </ul>
+            </div>
+
+
+
+            <!-- Visible when footer positions are static -->
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <div class="hide-fixed pull-right pad-rgt">Ver.1.0</div>
+
+
+
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <!-- Remove the class name "show-fixed" and "hide-fixed" to make the content always appears. -->
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+            <p class="pad-lft">&#0169; 2016 CooperJS</p>
+
+
+
+        </footer>
+        <!--===================================================-->
+        <!-- END FOOTER -->
+
+
+        <!-- SCROLL TOP BUTTON -->
+        <!--===================================================-->
+        <button id="scroll-top" class="btn"><i class="fa fa-chevron-up"></i></button>
+        <!--===================================================-->
+
+
+
+	</div>
+	<input id="encode-utf-8" hidden="true" value="1">
+	<input id="plug-test" hidden="true" value="0">
+	<!--===================================================-->
+	<!-- END OF CONTAINER -->
+
+	
+    <!--JAVASCRIPT-->
+    <!--=================================================-->
+
+    <!--jQuery [ REQUIRED ]-->
+    <script src="/javascripts/jquery-2.1.1.min.js"></script>
+
+
+    <!--BootstrapJS [ RECOMMENDED ]-->
+    <script src="/javascripts/bootstrap.min.js"></script>
+
+
+    <!--Fast Click [ OPTIONAL ]-->
+    <script src="/plugins/fast-click/fastclick.min.js"></script>
+
+    
+    <!--Nifty Admin [ RECOMMENDED ]-->
+    <script src="/javascripts/nifty.min.js"></script>
+
+    <script src="/javascripts/jquery.cookie.js"></script>
+
+    <script src="/javascripts/url-tld.min.js"></script>
+
+    <!--Switchery [ OPTIONAL ]-->
+    <script src="/plugins/switchery/switchery.min.js"></script>
+
+
+    <!--Bootstrap Select [ OPTIONAL ]-->
+    <script src="/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+
+
+    <!--Demo script [ DEMONSTRATION ]-->
+    <script src="/javascripts/nifty-demo.min.js"></script>
+
+     <!--DataTables [ OPTIONAL ]-->
+    <script src="/plugins/datatables/media/js/jquery.dataTables.js"></script>
+	<script src="/plugins/datatables/media/js/dataTables.bootstrap.js"></script>
+	<script src="/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js"></script>
+		
+	<script src='/javascripts/tree.js'></script>
+	<script src='/javascripts/CopperJS.js'></script>
+	<script src="/javascripts/SimUDP.js"></script>
+	<script src="/javascripts/bootstrap-submenu.js" defer></script>
+	<script src="/plugins/bootbox/bootbox.min.js"></script>
+	<script src="/namespace.js"></script>
+	<script src="/coap/CoapRFC7252.js"></script>
+	<script src="/coap/CoapMessage.js"></script>
+	<script src="/coap/TransactionHandler.js"></script>
+	<script src="/coap/UdpClient.js"></script>
+	<script src="/ResourceViews.js"></script>
+	<script src="/Helpers.js"></script>
+	<script src="/Handlers.js"></script>
+	<script src="/Renderers.js"></script>
+	<script src="/DebugOptions.js"></script>
+	<script src="/Options.js"></script>
+	<script src="/Observing.js"></script>
+	<script src="/Plugtest.js"></script>
+	<script src="/Logger.js"></script>
+	<script src="/Main.js"></script>
+	<script>
+
+  var client = SimUDP.createSocket("udp4");
+	client.bind();
+  client.on('error', function(d) {
+    console.error('client', d);
+  });
+  client.on('message', function(msg) {
+    console.log('client : received ', msg.toString());
+  });
+
+  client.on('listening', function() {
+    console.log('client : listening on', client.address());
+  });
+
+  var msg = '@\\01.K\\d1\\n\\02';
+  console.log('client : sending', msg);
+  client.send(msg, 0, msg.length, 5683, "192.168.8.100", function(err, bytes) {
+  	console.log("client closed");
+    client.close()
+	});
+  </script>
+</body>
+</html>
+
